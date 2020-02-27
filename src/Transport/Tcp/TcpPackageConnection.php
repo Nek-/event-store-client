@@ -108,6 +108,7 @@ class TcpPackageConnection
 
                 $uri = \sprintf('tcp://%s:%s', $this->remoteEndPoint->host(), $this->remoteEndPoint->port());
                 $this->connection = yield connect($uri, $context);
+                $this->connection->unreference();
 
                 if ($this->ssl) {
                     $tlsContext = (new ClientTlsContext())->withPeerName($this->targetHost);
